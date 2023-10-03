@@ -12,7 +12,7 @@
 ### Association
 
 - has_many :items
-- has_one :profiles
+- has_many :profiles
 
 ## items テーブル
 
@@ -25,9 +25,11 @@
 | delivery_cost      | string     | null: false                    |
 | source_area        | string     | null: false                    |
 | price              | int        | null: false                    |
+| user               | references | null: false, foreign_key: true |
 
 ### Association
 
+- has_one :profile
 - belongs_to :user
 
 ## profiles テーブル
@@ -42,7 +44,10 @@
 | street_address     | string     | null: false                    |
 | building           | string     | null: false                    |
 | telephone          | int        | null: false                    |
+| user               | references | null: false, foreign_key: true |
+| item               | references | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :user
+- belongs_to :profile
