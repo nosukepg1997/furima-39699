@@ -1,24 +1,48 @@
-# README
+# テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users テーブル
 
-Things you may want to cover:
+| Column             | Type   | Options                   |
+| ------------------ | ------ | ------------------------- |
+| name               | string | null: false               |
+| email              | string | null: false, unique: true |
+| password           | string | null: false               |
+| date_of_birth      | date   | null: false               |
 
-* Ruby version
+### Association
 
-* System dependencies
+- has_many :items
+- has_one :profiles
 
-* Configuration
+## items テーブル
 
-* Database creation
+| Column             | Type       | Options                        |
+| ------------------ | ---------- | ------------------------------ |
+| product_name       | string     | null: false                    |
+| description        | text       | null: false                    |
+| category           | string     | null: false                    |
+| condtion           | string     | null: false                    |
+| delivery_cost      | string     | null: false                    |
+| source_area        | string     | null: false                    |
+| price              | int        | null: false                    |
 
-* Database initialization
+### Association
 
-* How to run the test suite
+- belongs_to :user
 
-* Services (job queues, cache servers, search engines, etc.)
+## profiles テーブル
 
-* Deployment instructions
+| Column             | Type       | Options                        |
+| ------------------ | ---------- | ------------------------------ |
+| card_number        | int        | null: false                    |
+| security_code      | int        | null: false                    |
+| post_code          | string     | null: false                    |
+| state              | string     | null: false                    |
+| city               | string     | null: false                    |
+| street_address     | string     | null: false                    |
+| building           | string     | null: false                    |
+| telephone          | int        | null: false                    |
 
-* ...
+### Association
+
+- belongs_to :user
