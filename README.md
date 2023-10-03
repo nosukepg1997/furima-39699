@@ -4,6 +4,7 @@
 
 | Column             | Type   | Options                   |
 | ------------------ | ------ | ------------------------- |
+| nickname           | string | null: false               |
 | last_name          | string | null: false               |
 | first_name         | string | null: false               |
 | last_name_kana     | string | null: false               |
@@ -26,15 +27,14 @@
 | category_id        | integer    | null: false                    |
 | condition_id       | integer    | null: false                    |
 | delivery_cost_id   | integer    | null: false                    |
-| source_area_id     | integer    | null: false                    |
+| prefecture_id      | integer    | null: false                    |
 | days_until_send_id | integer    | null: false                    |
 | price              | integer    | null: false                    |
 | user               | references | null: false, foreign_key: true |
 
 ### Association
 
-- has_one :profile
-- has_one :histories
+- has_one :history
 - belongs_to :user
 
 ## profiles テーブル
@@ -42,7 +42,7 @@
 | Column             | Type       | Options                        |
 | ------------------ | ---------- | ------------------------------ |
 | post_code          | string     | null: false                    |
-| state              | string     | null: false                    |
+| prefecture_id      | integer    | null: false                    |
 | city               | string     | null: false                    |
 | street_address     | string     | null: false                    |
 | building           | string     |                                |
@@ -51,8 +51,7 @@
 
 ### Association
 
-- belongs_to :items
-- belongs_to :histories
+- belongs_to :history
 
 ## histories テーブル
 
@@ -64,6 +63,6 @@
 
 ### Association
 
-- has_many :profiles
+- has_one :profile
 - belongs_to :user
-- belongs_to :items
+- belongs_to :item
