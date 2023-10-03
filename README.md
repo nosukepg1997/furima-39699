@@ -4,15 +4,18 @@
 
 | Column             | Type   | Options                   |
 | ------------------ | ------ | ------------------------- |
-| name               | string | null: false               |
+| last_name          | string | null: false               |
+| first_name         | string | null: false               |
+| last_name_kana     | string | null: false               |
+| first_name_kana    | string | null: false               |
 | email              | string | null: false, unique: true |
-| password           | string | null: false               |
+| encrypted_password | string | null: false               |
 | date_of_birth      | date   | null: false               |
 
 ### Association
 
 - has_many :items
-- has_many :profiles
+- has_many :histories
 
 ## items テーブル
 
@@ -20,34 +23,47 @@
 | ------------------ | ---------- | ------------------------------ |
 | product_name       | string     | null: false                    |
 | description        | text       | null: false                    |
-| category           | string     | null: false                    |
-| condtion           | string     | null: false                    |
-| delivery_cost      | string     | null: false                    |
-| source_area        | string     | null: false                    |
-| price              | int        | null: false                    |
+| category_id        | integer    | null: false                    |
+| condition_id       | integer    | null: false                    |
+| delivery_cost_id   | integer    | null: false                    |
+| source_area_id     | integer    | null: false                    |
+| days_until_send_id | integer    | null: false                    |
+| price              | integer    | null: false                    |
 | user               | references | null: false, foreign_key: true |
 
 ### Association
 
 - has_one :profile
+- has_one :histories
 - belongs_to :user
 
 ## profiles テーブル
 
 | Column             | Type       | Options                        |
 | ------------------ | ---------- | ------------------------------ |
-| card_number        | int        | null: false                    |
-| security_code      | int        | null: false                    |
 | post_code          | string     | null: false                    |
 | state              | string     | null: false                    |
 | city               | string     | null: false                    |
 | street_address     | string     | null: false                    |
-| building           | string     | null: false                    |
-| telephone          | int        | null: false                    |
-| user               | references | null: false, foreign_key: true |
-| item               | references | null: false, foreign_key: true |
+| building           | string     |                                |
+| telephone          | string     | null: false                    |
+| history            | references | null: false, foreign_key: true |
 
 ### Association
 
+- belongs_to :items
+- belongs_to :histories
+
+## histories テーブル
+
+| Column             | Type       | Options                        |
+| ------------------ | ---------- | ------------------------------ |
+| user               | references | null: false, foreign_key: true |
+| item               | references | null: false, foreign_key: true |
+
+
+### Association
+
+- has_many :profiles
 - belongs_to :user
-- belongs_to :profile
+- belongs_to :items
