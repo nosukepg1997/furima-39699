@@ -6,14 +6,13 @@ RSpec.describe User, type: :model do
   end
 
   describe 'ユーザー新規登録' do
-
     context '新規登録できるとき' do
       it 'nickname、email、password、password_confirmation、
       last_name、first_name、last_name_kana、first_name_kana、date_of_birthが存在すれば登録できる' do
         expect(@user).to be_valid
       end
     end
-    
+
     context '新規登録できないとき' do
       it 'nicknameが空では登録できない' do
         @user.nickname = ''
@@ -85,7 +84,7 @@ RSpec.describe User, type: :model do
         @user.password = Faker::Internet.password(min_length: 129, max_length: 150)
         @user.password_confirmation = @user.password
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password is too long (maximum is 128 characters)")
+        expect(@user.errors.full_messages).to include('Password is too long (maximum is 128 characters)')
       end
     end
   end
