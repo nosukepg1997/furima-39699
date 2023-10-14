@@ -19,6 +19,6 @@ class User < ApplicationRecord
   validates :date_of_birth, presence: true
 
   #他機能実装までコメントアウト
-  #has_many :items
+  has_many :items
   #has_many :histories
 end
