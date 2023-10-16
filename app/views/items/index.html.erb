@@ -111,7 +111,7 @@
       <%# ダミー商品を表示する %>
       <% if @items.nil? || @items.empty? %>
         <li class="list">
-          <a href="#">
+          <%= link_to '#' do %>
             <div class="item-img-content">
               <%= image_tag("item-sample.png", class:"item-img") %>
             </div>
@@ -122,17 +122,18 @@
               <div class="item-price">
                 <span>10000円<br>着払い(購入者負担)</span>
                 <div class="star-btn">
-                  <%= link_to image_tag("star.png", class:"star-icon") %>
+                  <%= image_tag("star.png", class:"star-icon") %>
                   <span class="star-count">0</span>
                 </div>
               </div>
             </div>
-          </a>
+          <% end %>
         </li>
       <% else %>
+        <%# 商品の一覧を表示 %>
         <% @items.each do |item| %>
           <li class="list">
-            <a href="#">
+            <%= link_to '#' do %>
               <div class="item-img-content">
                 <%= image_tag item.image, class: 'item-img' %>
               </div>
@@ -143,12 +144,12 @@
                 <div class="item-price">
                   <span><%= item.price %>円<br><%= Deliverycost.find(item.delivery_cost_id).name %></span>
                   <div class="star-btn">
-                    <%= link_to image_tag("star.png", class:"star-icon") %>
+                    <%= image_tag("star.png", class:"star-icon") %>
                     <span class="star-count">0</span>
                   </div>
                 </div>
               </div>
-            </a>
+            <% end %>
           </li>
         <% end %>
       <% end %>
