@@ -107,6 +107,53 @@
     <div class="subtitle">
       新規投稿商品
     </div>
+    <ul class="item-lists">
+      <%# ダミー商品を表示する %>
+      <% if @items.nil? || @items.empty? %>
+        <li class="list">
+          <%= link_to '#' do %>
+            <div class="item-img-content">
+              <%= image_tag("item-sample.png", class:"item-img") %>
+            </div>
+            <div class="item-info">
+              <h3 class="item-name">
+                ダミー商品
+              </h3>
+              <div class="item-price">
+                <span>10000円<br>着払い(購入者負担)</span>
+                <div class="star-btn">
+                  <%= image_tag("star.png", class:"star-icon") %>
+                  <span class="star-count">0</span>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </li>
+      <% else %>
+        <%# 商品の一覧を表示 %>
+        <% @items.each do |item| %>
+          <li class="list">
+            <%= link_to '#' do %>
+              <div class="item-img-content">
+                <%= image_tag item.image, class: 'item-img' %>
+              </div>
+              <div class="item-info">
+                <h3 class="item-name">
+                  <%= item.product_name %>
+                </h3>
+                <div class="item-price">
+                  <span><%= item.price %>円<br><%= Deliverycost.find(item.delivery_cost_id).name %></span>
+                  <div class="star-btn">
+                    <%= image_tag("star.png", class:"star-icon") %>
+                    <span class="star-count">0</span>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
   </div>
 </div>
 
