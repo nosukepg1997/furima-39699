@@ -1,6 +1,5 @@
 class Item < ApplicationRecord
-  #他機能実装までコメントアウト
-  #has_one :history
+  has_one :history
   belongs_to :user
 
   has_one_attached :image

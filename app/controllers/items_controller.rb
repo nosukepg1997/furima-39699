@@ -2,6 +2,7 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :destroy]
   before_action :move_to_index, only: [:edit]
   before_action :set_item, only: [:edit, :show, :update, :destroy]
+  before_action :set_history, only: [:show, :edit]
 
   def index 
     @items = Item.order(created_at: :desc)
@@ -21,9 +22,13 @@ class ItemsController < ApplicationController
   end
 
   def show
+    
   end
 
   def edit
+    if @history.present? && @item.id == @history.item_id
+      redirect_to root_path
+    end
   end
 
   def update
@@ -69,6 +74,12 @@ class ItemsController < ApplicationController
 
   def set_item
     @item = Item.find(params[:id])
+  end
+
+  def set_history
+    if History.find_by(item_id: @item.id).present?
+      @history = History.find(@item.id)
+    end
   end
 
 end

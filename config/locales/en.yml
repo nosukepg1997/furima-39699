@@ -41,5 +41,8 @@ en:
       last_name_kana: "Your custom lastnamekana translation"
       first_name_kana: "Your custom firstnamekana translation"
       product_name: "Your custom product name translation"
+      city: "Your custom city translation"
+      street_address: "Your custom street address translation"
+      building: "Your custom building translation"
 
 
