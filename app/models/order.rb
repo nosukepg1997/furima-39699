@@ -1,15 +1,22 @@
 class Order
 
   include ActiveModel::Model
-  attr_accessor :post_code, :prefecture_id, :city, :street_address, :building, :telephone, :history, :user_id, :item_id, :token
+  attr_accessor :post_code, :prefecture_id, :city, :street_address, :building, :telephone, :user_id, :item_id, :token
   
-  validates :post_code, presence: true, format: { with: /\A\d{3}-\d{4}\z/, message: 'is invalid' }
-  validates :prefecture_id, numericality: { other_than: 1 }
-  validates :city, presence: true
-  validates :street_address, presence: true
-  validates :telephone, presence: true, format: { with: /\A\d{10,11}\z/, message: 'is invalid' }
+  with_options presence: true do
+    validates :post_code, format: { with: /\A\d{3}-\d{4}\z/, message: 'is invalid' }
+    validates :prefecture_id, numericality: { other_than: 1 }
+    validates :city
+    validates :street_address
+    validates :telephone, format: { with: /\A\d{10,11}\z/, message: 'is invalid' }
 
-  validates :token, presence: true
+    validates :user_id
+    validates :item_id
+
+    validates :token
+  end
+
+
   
   def save
     history = History.create(user_id: user_id, item_id: item_id)

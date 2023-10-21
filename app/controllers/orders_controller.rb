@@ -1,8 +1,8 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!, only: [:index, :new, :create]
+  before_action :set_item, only:[:index]
 
   def index
-    @item = Item.find(params[:item_id])
     @history = History.find_by(item_id: @item.id)
     if @item.user_id == current_user.id
       redirect_to root_path
@@ -11,10 +11,7 @@ class OrdersController < ApplicationController
         redirect_to root_path
       end
     end
-    @order = Order.new
-  end
-
-  def new
+    gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
     @order = Order.new
   end
 
@@ -25,7 +22,8 @@ class OrdersController < ApplicationController
       @order.save
       redirect_to root_path
     else
-      @item = Item.find(params[:item_id])
+      set_item
+      gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
       render :index, status: :unprocessable_entity
     end
   end
@@ -34,7 +32,7 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    @item = Item.find(params[:item_id])
+    set_item
     params.require(:order).permit(:post_code, 
                                   :prefecture_id, 
                                   :city, 
@@ -47,10 +45,12 @@ class OrdersController < ApplicationController
                                       )
   end
 
-  
+  def set_item
+    @item = Item.find(params[:item_id])
+  end
 
   def pay_item
-    Payjp.api_key = "sk_test_5a5381563b2cf42f59e51e30" 
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"] 
     Payjp::Charge.create(
       amount: @item.price,
       card: order_params[:token],
