@@ -7,9 +7,7 @@ class OrdersController < ApplicationController
     if @item.user_id == current_user.id
       redirect_to root_path
     elsif @history.present?
-      if @item.id == History.find(@item.id).item_id
-        redirect_to root_path
-      end
+      redirect_to root_path
     end
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
     @order = Order.new

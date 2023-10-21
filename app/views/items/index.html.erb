@@ -138,11 +138,9 @@
                 <%= image_tag item.image, class: 'item-img' %>
                 <% history = History.find_by(item_id: item.id) %>
                 <% if history.present? %>
-                  <% if item.id == History.find(item.id).item_id%>
-                    <div class="sold-out">
-                      <span>Sold Out!!</span>
-                    </div>
-                  <% end %>
+                  <div class="sold-out">
+                    <span>Sold Out!!</span>
+                  </div>
                 <% end %>
               </div>
               <div class="item-info">

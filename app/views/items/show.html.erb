@@ -10,11 +10,9 @@
       <%= image_tag @item.image ,class:"item-box-img" %>
 
       <% if @history.present? %>
-        <% if @item.id == @history.item_id %>
-          <div class="sold-out">
-            <span>Sold Out!!</span>
-          </div>
-        <% end %>
+        <div class="sold-out">
+          <span>Sold Out!!</span>
+        </div>
       <% end %>
 
     </div>
