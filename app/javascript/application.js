@@ -3,3 +3,4 @@ import "@hotwired/turbo-rails"
 import "controllers"
 //= require rails-ujs
 import "item_price"
+import "card"

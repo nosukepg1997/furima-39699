@@ -136,6 +136,12 @@
             <%= link_to item_path(item) do %>
               <div class="item-img-content">
                 <%= image_tag item.image, class: 'item-img' %>
+                <% history = History.find_by(item_id: item.id) %>
+                <% if history.present? %>
+                  <div class="sold-out">
+                    <span>Sold Out!!</span>
+                  </div>
+                <% end %>
               </div>
               <div class="item-info">
                 <h3 class="item-name">

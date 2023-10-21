@@ -20,5 +20,5 @@ class User < ApplicationRecord
 
   #他機能実装までコメントアウト
   has_many :items
-  #has_many :histories
+  has_many :histories
 end

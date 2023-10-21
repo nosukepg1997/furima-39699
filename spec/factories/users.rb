@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :user do
-    nickname { Faker::Name.nickname }
+    nickname { Faker::Name.name }
     email { Faker::Internet.email }
     password { '1a' + Faker::Internet.password(min_length: 6, mix_case: true, special_characters: false) }
     password_confirmation { password }
@@ -11,3 +11,4 @@ FactoryBot.define do
     date_of_birth { Faker::Date.between(from: 90.years.ago, to: 3.years.ago) }
   end
 end
+

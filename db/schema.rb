@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_14_081736) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_18_102431) do
   create_table "active_storage_attachments", charset: "utf8", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -39,6 +39,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_14_081736) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "histories", charset: "utf8", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.bigint "item_id", null: false
+    t.index ["item_id"], name: "index_histories_on_item_id"
+    t.index ["user_id"], name: "index_histories_on_user_id"
+  end
+
   create_table "items", charset: "utf8", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -52,6 +61,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_14_081736) do
     t.integer "price", null: false
     t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_items_on_user_id"
+  end
+
+  create_table "profiles", charset: "utf8", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "post_code", null: false
+    t.integer "prefecture_id", null: false
+    t.string "city", null: false
+    t.string "street_address", null: false
+    t.string "building"
+    t.string "telephone", null: false
+    t.bigint "history_id", null: false
+    t.index ["history_id"], name: "index_profiles_on_history_id"
   end
 
   create_table "users", charset: "utf8mb4", force: :cascade do |t|
@@ -74,5 +96,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_14_081736) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "histories", "items"
+  add_foreign_key "histories", "users"
   add_foreign_key "items", "users"
+  add_foreign_key "profiles", "histories"
 end
