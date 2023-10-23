@@ -2,7 +2,6 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :destroy]
   before_action :move_to_index, only: [:edit]
   before_action :set_item, only: [:edit, :show, :update, :destroy]
-  before_action :set_history, only: [:edit]
 
   def index 
     @items = Item.order(created_at: :desc)
@@ -26,7 +25,7 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    if @history.present? && @item.id == @history.item_id
+    if @item.history && @item.history.id.present?
       redirect_to root_path
     end
   end
