@@ -77,9 +77,10 @@ class ItemsController < ApplicationController
   end
 
   def set_history
-    if History.find_by(item_id: @item.id).present?
-      @history = History.find(@item.id)
+    if @item.history && @item.history.id.present?
+      @history = @item.history.id
     end
   end
+  
 
 end
